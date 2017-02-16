@@ -1,4 +1,4 @@
-describe('about Language model operation.', function() {
+describe.only('about Language model operation.', function() {
   const languageData = {
     name: `testLanguage`,
     code: `tCode`,
@@ -21,7 +21,7 @@ describe('about Language model operation.', function() {
 
   it('find Language by name should success.', async (done) => {
     try {
-      let result = await Language.find({ where: { name: languageData.name } });
+      const result = await Language.find({ where: { name: languageData.name } });
       result.name.should.be.eq(languageData.name);
       done();
     } catch (e) {
@@ -31,7 +31,10 @@ describe('about Language model operation.', function() {
 
   it('update Language by name should success.', async (done) => {
     try {
-      const result = Language.update({ name: 'updateLanguage' }, { where: { name: languageData.name } });
+      const result = await Language.find({ where: { name: languageData.name } });
+      result.name = 'updateLanguage';
+      await result.save();
+      result.name.should.be.eq( 'updateLanguage' );
       done();
     } catch (e) {
       done(e);
@@ -42,6 +45,8 @@ describe('about Language model operation.', function() {
     try {
       const result = await Language.destroy({ where: { locale: languageData.locale  }  });
       result.should.be.eq(1);
+      const findlanguage = await Language.findOne({ where: { name: 'updateLanguage' } });
+      ( findlanguage === null ).should.be.true;
       done()
     } catch (e) {
       done(e)
