@@ -1,4 +1,4 @@
-describe.only('about Language model operation.', function() {
+describe('about Language model operation.', function() {
   const languageData = {
     name: `testLanguage`,
     code: `tCode`,
