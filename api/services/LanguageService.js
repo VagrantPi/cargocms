@@ -9,7 +9,7 @@ module.exports = {
     languageStatus
   }) => {
     try {
-      sails.log.info({
+      /*sails.log.info({
         languageName,
         languageCode,
         languageLocale,
@@ -17,7 +17,7 @@ module.exports = {
         languageDirectory,
         languageSortOrder,
         languageStatus
-      });
+      });*/
 
       const findExistLanguage = await Language.find({
         where: { name: languageName }
@@ -38,7 +38,7 @@ module.exports = {
 
       return language;
     } catch (e) {
-      sails.log.error(e);
+      // sails.log.error(e);
     }
   },
 
@@ -60,7 +60,7 @@ module.exports = {
     status
   }) => {
     try {
-      sails.log.info('update language service=>', language)
+      // sails.log.info('update language service=>', language)
       let updatedLanguage = await Language.findOne({
         where: {
           name: language.name
@@ -88,14 +88,14 @@ module.exports = {
   
   deleteByLanguageName: async(languageName) => {
     try {
-      deletedLangue = await Language.destroy({
+      const deletedLangue = await Language.destroy({
         where: {
           name: languageName
         }
       });
-      if(deletedLangue) {
+      /*if(deletedLangue) {
         sails.log.info(`${languageName} is destroy!`);
-      }
+      }*/
     } catch (e) {
       throw e;
     }
