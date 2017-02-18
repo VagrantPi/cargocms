@@ -2,7 +2,7 @@ module.exports = {
   create: async ({
     languageName,
     languageCode,
-    languageLocal,
+    languageLocale,
     languageImage,
     languageDirectory,
     languageSortOrder,
@@ -12,7 +12,7 @@ module.exports = {
       sails.log.info({
         languageName,
         languageCode,
-        languageLocal,
+        languageLocale,
         languageImage,
         languageDirectory,
         languageSortOrder,
@@ -22,19 +22,18 @@ module.exports = {
       const findExistLanguage = await Language.find({
         where: { name: languageName }
       });
-
       if (findExistLanguage) {
         throw new Error(`user ${findExistLanguage.languageName} exist!`);
       }
 
       const language = await Language.create({
-        languageName,
-        languageCode,
-        languageLocal,
-        languageImage,
-        languageDirectory,
-        languageSortOrder,
-        languageStatus
+        name: languageName,
+        code: languageCode,
+        locale: languageLocale,
+        image: languageImage,
+        directory: languageDirectory,
+        sortOrder: languageSortOrder,
+        status: languageStatus
       });
 
       return language;
@@ -45,7 +44,7 @@ module.exports = {
 
   findByLanguageName: async(languageName) => {
     try {
-      return await Language.find({ where: { name:LanguageName } });
+      return await Language.find({ where: { name: languageName } });
     } catch (e) {
       throw e;
     }
@@ -54,7 +53,7 @@ module.exports = {
   update: async (language = {
     name,
     code,
-    local,
+    locale,
     image,
     directory,
     sortOrder,
@@ -64,14 +63,14 @@ module.exports = {
       sails.log.info('update language service=>', language)
       let updatedLanguage = await Language.findOne({
         where: {
-          name: language.name;
+          name: language.name
         }
       });
 
       if(updatedLanguage) {
         updatedLanguage.name = language.name;
         updatedLanguage.code = language.code;
-        updatedLanguage.local = language.local;
+        updatedLanguage.locale = language.locale;
         updatedLanguage.image = language.image;
         updatedLanguage.directory = language.directory;
         updatedLanguage.sortOrder = language.sortOrder;
@@ -91,7 +90,7 @@ module.exports = {
     try {
       deletedLangue = await Language.destroy({
         where: {
-          name: languageName;
+          name: languageName
         }
       });
       if(deletedLangue) {
