@@ -111,6 +111,11 @@ var defaultConfig = {
   'get /api/admin/labfnp/scent':  'api/admin/labfnp/ScentController.find',
   'get /api/admin/labfnp/scentnote':  'api/admin/labfnp/ScentNoteController.find',
 
+  'post /api/admin/language':          'api/admin/LanguageController.create',
+  'put /api/admin/language/:name':     'api/admin/LanguageController.update',
+  'get /api/admin/language/:name':     'api/admin/LanguageController.find',
+  'delete /api/admin/language/:name':  'api/admin/LanguageController.destroy',
+
   //----- Event -----
   'get /events/:name': 'EventController.show',
 
