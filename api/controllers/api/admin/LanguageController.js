@@ -4,15 +4,14 @@ module.exports = {
     // sails.log.info('create language controller =>', data);
     try {
       const language = await LanguageService.create(data);
-      const findCreateLanguage = LanguageService.findByLanguageName(data.languageName);
-      const checkLanguageResult = language.name == data.languageName;
+      const checkLanguageResult = language.name === data.languageName;
       if(checkLanguageResult) {
         res.ok({
           message: 'create language success.',
           data: language
         });
       } else {
-        throw Error(`Create ${data.languageName} failed.`);
+        throw new Error(`Create ${data.languageName} failed.`);
       } 
     } catch (e) {
       res.serverError(e);
@@ -23,9 +22,6 @@ module.exports = {
     const { name } = req.params;
     try {
       const language = await LanguageService.findByLanguageName(name);
-      res.view('admin/language/index',{
-        data: language
-      });
       res.ok({
         message: 'Get language success.',
         data: language,
@@ -45,10 +41,9 @@ module.exports = {
         where: { name },
       });
       
-      const resultData = await LanguageService.findByLanguageName(name);
       res.ok({
         message: 'Update language success.',
-        data: resultData
+        data: language,
       })
     } catch (e) {
       res.serverError(e);
