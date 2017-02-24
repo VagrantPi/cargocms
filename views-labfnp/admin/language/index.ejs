@@ -1,0 +1,30 @@
+<h1><%  console.log( 'data =>', data ); %></h1>
+<h1><%  console.log( 'data =>', data.data.dataValues ); %></h1>
+<!-- client -->
+<table id="main-table" class="table table-striped table-bordered table-hover" width="100%">
+  <thead>
+    <tr>
+      <th width="10%" class=""><i class="fa fa-fw text-muted fa-hashtag hidden-sm hidden-xs"/> ID</th>
+      <th width="10%" class=""> Code</span></th>
+      <th width="20%" class=""> Locale</th>
+      <th width="20%" class=""> Image</th>
+      <th width="20%" class=""> Directory</th>
+      <th width="10%" class=""> SorOrder</th>
+      <th width="10%" class=""> Status</th>
+    </tr>
+  </thead>
+  <!-- client only -->
+  <tbody>
+    <tr>
+      <td><%= data.data.dataValues.id %></td>
+      <td><%= data.data.dataValues.code %></td>
+      <td><%= data.data.dataValues.locale %></td>
+      <td><%= data.data.dataValues.image %></td>
+      <td><%= data.data.dataValues.directory %></td>
+      <td><%= data.data.dataValues.sortOder %></td>
+      <td><%= data.data.dataValues.status %></td>
+    </tr>
+  </tbody>
+</table>
+
+

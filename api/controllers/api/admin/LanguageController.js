@@ -23,6 +23,9 @@ module.exports = {
     const { name } = req.params;
     try {
       const language = await LanguageService.findByLanguageName(name);
+      res.view('admin/language/index',{
+        data: language
+      });
       res.ok({
         message: 'Get language success.',
         data: language,
