@@ -2,6 +2,7 @@ import util from 'util';
 import crypto from 'crypto';
 import _ from 'lodash';
 import moment from 'moment';
+import sh from 'shorthash';
 
 export default class Allpay {
   constructor({
@@ -76,6 +77,10 @@ export default class Allpay {
     clientBackURL = clientBackURL || this.ClientBackURL;
     returnURL = returnURL || this.ReturnURL;
     paymentInfoURL = paymentInfoURL || this.PaymentInfoURL;
+    const ItemName = itemArray ? itemArray.join('#') : '';
+    const crc = sh.unique(`${MerchantTradeNo}${ItemName}${this.merchantID}`);
+    MerchantTradeNo = MerchantTradeNo + crc.substr(0, 3);
+
     const data = {
       MerchantID: this.merchantID,
       MerchantTradeNo,
@@ -83,7 +88,7 @@ export default class Allpay {
       PaymentType: 'aio',
       TotalAmount: totalAmount,
       TradeDesc: tradeDesc || 'none.',
-      ItemName: itemArray ? itemArray.join('#') : '',
+      ItemName,
       ReturnURL: this.resolve(this.domain, returnURL, true),
       ChoosePayment: paymentMethod || 'ALL',
       ClientBackURL: `${this.resolve(this.domain, clientBackURL, true)}?t=${MerchantTradeNo}`,
@@ -125,6 +130,10 @@ export default class Allpay {
     clientBackURL = clientBackURL || this.ClientBackURL;
     returnURL = returnURL || this.ReturnURL;
     paymentInfoURL = paymentInfoURL || this.PaymentInfoURL;
+    const ItemName = itemArray ? itemArray.join('#') : '';
+    const crc = sh.unique(`${MerchantTradeNo}${ItemName}${this.merchantID}`);
+    MerchantTradeNo = MerchantTradeNo + crc.substr(0, 3);
+
     const data = {
       MerchantID: this.merchantID,
       MerchantTradeNo,
@@ -132,7 +141,7 @@ export default class Allpay {
       PaymentType: PaymentType || 'aio',
       TotalAmount: totalAmount,
       TradeDesc: tradeDesc || 'none.',
-      ItemName: itemArray ? itemArray.join('#') : '',
+      ItemName,
       ReturnURL: this.resolve(this.domain, returnURL, true),
       ChoosePayment: paymentMethod || 'ALL',
       ClientBackURL: `${this.resolve(this.domain, clientBackURL, true)}?t=${MerchantTradeNo}`,
@@ -224,6 +233,13 @@ export default class Allpay {
     } catch (e) {
       throw e;
     }
+  }
+
+  checkCRC({ MerchantTradeNo, ItemName }) {
+    const checkTargetCRC = MerchantTradeNo.substr(MerchantTradeNo.length -3, MerchantTradeNo.length);
+    const realMerchantTradeNo = MerchantTradeNo.substr(0, MerchantTradeNo.length -3);
+    const CRC = sh.unique(`${realMerchantTradeNo}${ItemName}${this.merchantID}`);
+    return CRC === checkTargetCRC;
   }
 
   getPostUrl() {

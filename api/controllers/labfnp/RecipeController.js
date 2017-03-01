@@ -260,7 +260,7 @@ module.exports = {
     }
 
     const isolationLevel = sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE;
-    const MerchantTradeNo = crypto.randomBytes(32).toString('hex').substr(0, 8);
+    let MerchantTradeNo = crypto.randomBytes(32).toString('hex').substr(0, 8);
 
     let findOrder = await Allpay.find({
       where: {
@@ -316,6 +316,7 @@ module.exports = {
           transaction,
           ...goshopInfo,
         }).then(function(allPayData) {
+          MerchantTradeNo = allPayData.allpay.MerchantTradeNo;
           resolve(allPayData);
         }).catch(function(err) {
           reject(err)

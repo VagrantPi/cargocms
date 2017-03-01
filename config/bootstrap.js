@@ -43,28 +43,30 @@ module.exports.bootstrap = async (cb) => {
 
     }
 
+    console.log("=== bootstrap create admin 0===");
+
     let adminRole = await Role.findOrCreate({
       where: {authority: 'admin'},
       defaults: {authority: 'admin'}
     });
-
+    console.log("=== bootstrap create admin 1===");
     let userRole = await Role.findOrCreate({
       where: {authority: 'user'},
       defaults: {authority: 'user'}
     });
 
-		let adminUser = await User.findOne({
-      where: {
-        username: 'admin'
-      }
+
+
+    let adminUser = await User.findOne({
+      where: {username: 'admin'}
     });
-    if(adminUser === null) {
+    if(adminUser == null){
       adminUser = await User.create({
         username: 'admin',
         email: 'admin@example.com',
         firstName: '李仁',
         lastName: '管'
-      });
+      })
     }
 
     await Passport.findOrCreate({
@@ -78,22 +80,27 @@ module.exports.bootstrap = async (cb) => {
         UserId: adminUser.id
       }
     });
+
+    console.log("=== bootstrap create admin 4===");
     await adminUser.addRole(adminRole[0]);
+
+    console.log("=== bootstrap create admin 5===");
+
     /*
      * 是否要匯入的判斷必須交給 init 定義的程式負責
      */
 
     if (environment !== 'test') {
       // 自動掃描 init 底下的 module 資料夾後執行資料初始化
-      fs.readdir('./config/init/', function(err, files) {
-        for (var i in files) {
-          let dirName = files[i];
+      fs.readdir('./config/init/', async function(err, files) {
+        for (var i of files) {
+          let dirName = i;
           let isDir = fs.statSync('./config/init/' + dirName).isDirectory();
           if (isDir) {
             let hasIndexFile = fs.statSync('./config/init/' + dirName + '/index.js').isFile();
 
             try {
-              require('./init/' + dirName).init();
+              await require('./init/' + dirName).init();
             }
             catch (e) {
               sails.log.error(e);
@@ -104,7 +111,7 @@ module.exports.bootstrap = async (cb) => {
     } else {
       // 測試時需要初始化的 module
       try {
-        require(`${__dirname}/init/allpay`).init();
+        await require(`${__dirname}/init/allpay`).init();
       }
       catch (e) {
         sails.log.error(e);

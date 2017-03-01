@@ -27,6 +27,7 @@ module.exports = {
         }
       }
     }
+
   },
   associations: () => {},
   options: {

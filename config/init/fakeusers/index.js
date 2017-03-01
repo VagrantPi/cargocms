@@ -11,10 +11,13 @@ module.exports.init = async () => {
   try {
     const isDevMode = sails.config.environment === 'development';
     const isDropMode = sails.config.models.migrate == 'drop';
+    const isStressMode = process.env.TEST_MODE == "STRESS_E2E";
 
-    if (isDevMode && isDropMode) {
+    if (isDevMode || isStressMode && isDropMode) {
 
-      fetch('http://api.randomuser.me/?results=100')
+      const amount = isStressMode ? "800" : "100";
+      console.log("fake user amout" + amount);
+      fetch('http://api.randomuser.me/?results='+amount)
       .then(function(res) {
         return res.json();
       })
