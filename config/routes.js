@@ -116,6 +116,12 @@ var defaultConfig = {
   'get /api/admin/language/:name':     'api/admin/LanguageController.find',
   'delete /api/admin/language/:name':  'api/admin/LanguageController.destroy',
 
+  'get /api/admin/role': 'api/admin/RoleController.find',
+  'get /api/admin/role/:id': 'api/admin/RoleController.findOne',
+  'post /api/admin/role': 'api/admin/RoleController.create',
+  'put /api/admin/role/:id': 'api/admin/RoleController.update',
+  'delete /api/admin/role/:id': 'api/admin/RoleController.destroy',
+
   //----- Event -----
   'get /events/:name': 'EventController.show',
 
