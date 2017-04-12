@@ -16,6 +16,17 @@
 <% } else { %>
 
   <div class="container orderHistory">
+    <br>
+    <div class="panel panel-default">
+      <div class="panel-heading">匯款資訊</div>
+      <div class="panel-body">
+        <div>匯款銀行：<%= bank %> 銀行 <%= bankBranch %> 分行</div>
+        <div>銀行代號：<%= bankId %></div>
+        <div>分行代號：<%= bankBranchId %></div>
+        <div>匯款帳號：<%= ATMid %></div>
+        <div>帳戶名稱：<%= accountName %></div>
+      </div>
+    </div>
     <table class="table table-hover order-list ">
       <thead>
         <tr>

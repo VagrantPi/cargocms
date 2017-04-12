@@ -131,6 +131,12 @@ module.exports = {
       message = 'get order history success.';
       res.view('b2b/order/orderhistory',{
         message,
+        bank: sails.config.bank,
+        bankId: sails.config.bankId,
+        bankBranch: sails.config.bankBranch,
+        bankBranchId: sails.config.bankBranchId,
+        ATMid: sails.config.ATMid,
+        accountName: sails.config.accountName,
         data:{
           items
         }

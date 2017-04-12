@@ -11,6 +11,12 @@
  */
 
 module.exports = {
+  bank: '國泰世華',
+  bankId: '013',
+  bankBranch: '南屯',
+  bankBranchId: '2402',
+  ATMid: '808080808080',
+  accountName: '管李仁',
   storeName: '',
   appUrl: 'cargo-dev.trunksys.com',
   port: 5001,
