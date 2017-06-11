@@ -295,30 +295,6 @@ var OrderForm = new Vue({
       }
     },
   },
-  /*
-  computed: {
-    sumTotal: function() {
-        var sum = 0;
-        $(this.carts).each(function(index, el) {
-            sum += el.noTaxPrice;
-        });
-        return sum;
-    },
-    grandTax: function() {
-        var sum = 0;
-        $(this.carts).each(function(index, el) {
-            sum += el.taxPrice;
-        });
-        return sum;
-    }
-  },
-  created: function() {
-      $(window).on('modifyCart', function() {
-          this.carts = JSON.parse(localStorage.cart || '[]');
-      }.bind(this));
-  },
-  */
-
   filters: {
     moneyNum: function(n) {
       var moneyFormat = /(\d)(?=(\d{3})+(?!\d))/g;
