@@ -192,6 +192,18 @@ var FixedCart = new Vue({
     el: '#cart-fixed',
     data: {
         carts: JSON.parse(localStorage.cart || '[]'),
+    },
+    methods: {
+        removeProduct: function(index, event) {
+            removeFromCart(index);
+            $(window).trigger('modifyCart');
+            this.carts = JSON.parse(localStorage.cart || '[]');
+        },
+    },
+    created: function() {
+        $(window).on('modifyCart', function() {
+            this.carts = JSON.parse(localStorage.cart || '[]');
+        }.bind(this));
     }
 });
 
