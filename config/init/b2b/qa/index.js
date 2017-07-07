@@ -251,7 +251,7 @@ ATM轉帳帳號資訊如下：
         PostId: atm.id
       });
 
-    }
+    // }
 
   } catch (e) {
     console.error(e);
