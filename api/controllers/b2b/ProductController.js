@@ -58,6 +58,7 @@ module.exports = {
           },
           layoutImages: {
             banner: sails.config.layoutImages.banner[0],
+            indexLogo: sails.config.layoutImages.indexLogo[0],
           },
           errors: req.flash('error')[0],
         }
@@ -73,8 +74,12 @@ module.exports = {
         where: {
           id: req.params.id
         },
-        include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage]
+        include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
+        layoutImages: {
+          bannerLogo: sails.config.layoutImages.bannerLogo[0],
+        }
       });
+      sails.log('banner=>', sails.config.layoutImages.bannerLogo)
       res.view('b2b/product/detail',{
         data: {
           item,
