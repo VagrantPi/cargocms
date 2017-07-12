@@ -8,18 +8,17 @@ module.exports.init = async () => {
 
       const post = await Post.create({
         title: '購物常見問題',
-        content: '',
-        abstract: '',
+        content: '購物常見問題',
+        abstract: '購物常見問題',
+        alias: 'question-1',
         type: 'internal-event'
       });
 
       await Event.create({
         title: '如何線上訂購？',
-        description: `雲端漁場目前僅提供線上訂購的服務，以下說明詳細訂購流程。<br>
-<ul>        
-<li>未註冊會員：會員註冊→填寫會員資料→註冊完成→挑選品項及數量→結帳→填寫寄送資料→訂購完成</li>
-<li>已註冊會員:會員登入→挑選品項及數量→結帳→填寫寄送資料→訂購完成</li>
-</ul>`,
+        description: `雲端漁場目前僅提供線上訂購的服務，以下說明詳細訂購流程。
+● 未註冊會員：會員註冊→填寫會員資料→註冊完成→挑選品項及數量→結帳→填寫寄送資料→訂購完成
+● 已註冊會員:會員登入→挑選品項及數量→結帳→填寫寄送資料→訂購完成`,
         sellStartDate: '2017-04-17 00:00:00',
         sellEndDate: '2017-04-17 00:00:00',
         eventStartDate: '2017-04-17 00:00:00',
@@ -37,10 +36,10 @@ module.exports.init = async () => {
       });
       await Event.create({
         title: '目前雲端漁場提供哪些付款方式？',
-        description: `目前雲端漁場的付款方式有ATM轉帳及貨到付款兩種。<br>
-ATM轉帳帳號資訊如下：<br>
-兆豐商業銀行<br>
-銀行代號：017（斗六分行）<br>
+        description: `目前雲端漁場的付款方式有ATM轉帳及貨到付款兩種。
+ATM轉帳帳號資訊如下：
+兆豐商業銀行
+銀行代號：017（斗六分行）
 銀行帳號：063-09-11893-9
         `,
         sellStartDate: '2017-04-17 00:00:00',
@@ -81,14 +80,15 @@ ATM轉帳帳號資訊如下：<br>
 
       const post2 = await Post.create({
         title: '出貨常見問題',
-        content: '',
-        abstract: '',
+        content: '出貨常見問題',
+        abstract: '出貨常見問題',
+        alias: 'question-2',
         type: 'internal-event'
       });
 
       await Event.create({
         title: '目前提供哪些運送方式？',
-        description: `目前雲端漁場漁獲的運送方式以低溫宅配為主，漁獲將送達時宅配人員將以電話聯繫您，請保持電話暢通，確保新鮮漁獲順利送達手中。<br>
+        description: `目前雲端漁場漁獲的運送方式以低溫宅配為主，漁獲將送達時宅配人員將以電話聯繫您，請保持電話暢通，確保新鮮漁獲順利送達手中。
 若您是貨到付款，請您自備零錢，若需退貨請聯繫雲端漁場，宅配人員無法為您辦理退貨程序。`,
         sellStartDate: '2017-04-17 00:00:00',
         sellEndDate: '2017-04-17 00:00:00',
@@ -144,14 +144,15 @@ ATM轉帳帳號資訊如下：<br>
 
       const post3 = await Post.create({
         title: '退貨換貨常見問題',
-        content: '',
-        abstract: '',
+        content: '退貨換貨常見問題',
+        abstract: '退貨換貨常見問題',
+        alias: 'question-3',
         type: 'internal-event'
       });
 
       await Event.create({
         title: '如何辦理退貨及換貨？',
-        description: `雲端漁場只接受退貨，目前尚未提供換貨的服務。<br>
+        description: `雲端漁場只接受退貨，目前尚未提供換貨的服務。
 由於漁獲的新鮮程度會受到時間的影響，因此請您開箱魚貨時全程錄影，若有任何瑕疵或錯誤務必收到漁獲兩小時之內通知雲端漁場客服人員協助處理，請宅配公司到場收貨，若超過2天(收到漁獲後兩天)才通知，便會影響自身的退貨權力。`,
         sellStartDate: '2017-04-17 00:00:00',
         sellEndDate: '2017-04-17 00:00:00',
@@ -189,8 +190,9 @@ ATM轉帳帳號資訊如下：<br>
 
       const post4 = await Post.create({
         title: '發票常見問題',
-        content: '',
-        abstract: '',
+        content: '發票常見問題',
+        abstract: '發票常見問題',
+        alias: 'question-4',
         type: 'internal-event'
       });
 
@@ -229,6 +231,28 @@ ATM轉帳帳號資訊如下：<br>
         eventStartDate: '2017-04-17 00:00:00',
         eventEndDate: '2017-04-17 00:00:00',
         PostId: post4.id
+      });
+
+      const atm = await Post.create({
+        title: '付款',
+        content: '有哪些付款方式？',
+        abstract: '有哪些付款方式？',
+        alias: 'payment',
+        type: 'internal-event'
+      });
+
+      const atmObj = JSON.parse(sails.config.paymentMethods);
+      const atmObjectOther = JSON.parse(atmObj[0].other);
+      const atmAccount = atmObjectOther.account;
+      await Event.create({
+        title: '下完訂單後，我該如何付款？',
+        description: `請將您的訂單款項使用 ATM 轉帳至 ` + atmAccount + `
+匯款完成後再與客服人員聯繫，謝謝。`,
+        sellStartDate: '2017-01-01 00:00:00',
+        sellEndDate: '2017-01-01 00:00:00',
+        eventStartDate: '2017-01-01 00:00:00',
+        eventEndDate: '2017-01-01 00:00:00',
+        PostId: atm.id
       });
 
     // }

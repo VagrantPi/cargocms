@@ -87,7 +87,7 @@
                       <div ng-show="ticket.description" class="ng-binding">
                         <% var description = Event.description.replace(/[\r\n|\n]/g,"<br/>").split('<br/>');%>
                         <% description.forEach(function( desc ){ %>
-                          <%= desc %><br/>
+                          <%- desc %><br/>
                         <% }); %>
                       </div>
                     </div>

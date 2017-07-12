@@ -30,3 +30,5 @@ ALTER TABLE Feeds MODIFY fullPicture text;
 ALTER TABLE Products ADD `unit` varchar(8) NOT NULL AFTER `weight`;
 
 ALTER TABLE ProductDescriptions MODIFY precautions text;
+
+ALTER TABLE Events MODIFY description text;

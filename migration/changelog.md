@@ -108,3 +108,6 @@
 
 ### ProductDescriptions 欄位類型變動
 * 將 precautions 型態改為 TEXT。
+
+### Event 欄位類型變動
+* 將 description 型態改為 TEXT。

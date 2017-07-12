@@ -8,15 +8,16 @@ module.exports = {
 
     // get all payment methods from db
     const paymentMethodArray = [];
-    let paymentMethods = await Config.findAll({
+    let findPaymentMethods = await Config.findAll({
       where: {
         name: 'paymentMethods'
       }
     });
-    paymentMethods = JSON.parse(JSON.stringify(paymentMethods));
-    paymentMethods.forEach((item) => {
-      paymentMethodArray.push(item.key);
-    });
+    const paymentMethodString = findPaymentMethods[0].dataValues.value;
+    const paymentMethodObj = JSON.parse(paymentMethodString);
+    paymentMethodObj.forEach((item) => {
+      paymentMethodArray.push(item.type);
+    })
 
     res.view(
       'b2b/order/form',
