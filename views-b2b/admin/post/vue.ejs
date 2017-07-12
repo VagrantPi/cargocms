@@ -42,6 +42,11 @@ var postApp = new Vue({
       });
     },
     save: function (event) {
+      if(_.isNil(postAppModel.data.item.alias)) {
+        const nowDate = new Date();
+        const newAlias = nowDate.getFullYear() + nowDate.getMonth() + nowDate.getDate() + "-" + nowDate.getTime()
+        postAppModel.data.item.alias = newAlias;
+      }
       postAppModel.data.item.TagsArray = $('#tagsinput').tagsinput('items');
       postAppModel.data.item.content = $('.summernote').summernote('code');
       $.ajax({
@@ -71,6 +76,11 @@ var postApp = new Vue({
       }
     },
     update: function (event) {
+      if(_.isNil(postAppModel.data.item.alias)) {
+        const nowDate = new Date();
+        const newAlias = nowDate.getFullYear() + nowDate.getMonth() + nowDate.getDate() + "-" + nowDate.getTime()
+        postAppModel.data.item.alias = newAlias;
+      }
       postAppModel.data.item.TagsArray = $('#tagsinput').tagsinput('items');
       postAppModel.data.item.content = $('.summernote').summernote('code');
       $.ajax({

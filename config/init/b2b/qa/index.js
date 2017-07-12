@@ -8,8 +8,9 @@ module.exports.init = async () => {
 
       const post = await Post.create({
         title: '購物常見問題',
-        content: '',
-        abstract: '',
+        content: '購物常見問題',
+        abstract: '購物常見問題',
+        alias: 'question-1',
         type: 'internal-event'
       });
 
@@ -79,8 +80,9 @@ ATM轉帳帳號資訊如下：
 
       const post2 = await Post.create({
         title: '出貨常見問題',
-        content: '',
-        abstract: '',
+        content: '出貨常見問題',
+        abstract: '出貨常見問題',
+        alias: 'question-2',
         type: 'internal-event'
       });
 
@@ -142,8 +144,9 @@ ATM轉帳帳號資訊如下：
 
       const post3 = await Post.create({
         title: '退貨換貨常見問題',
-        content: '',
-        abstract: '',
+        content: '退貨換貨常見問題',
+        abstract: '退貨換貨常見問題',
+        alias: 'question-3',
         type: 'internal-event'
       });
 
@@ -187,8 +190,9 @@ ATM轉帳帳號資訊如下：
 
       const post4 = await Post.create({
         title: '發票常見問題',
-        content: '',
-        abstract: '',
+        content: '發票常見問題',
+        abstract: '發票常見問題',
+        alias: 'question-4',
         type: 'internal-event'
       });
 
