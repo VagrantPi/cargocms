@@ -170,7 +170,7 @@ module.exports = {
         where: {
           UserId: user.id
         },
-        include: [OrderStatus, OrderProduct],
+        include: [OrderStatus, OrderProduct, SupplierShipOrder],
         order: [
           ['createdAt', 'DESC']
         ],

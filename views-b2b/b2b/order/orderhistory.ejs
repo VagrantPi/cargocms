@@ -25,7 +25,6 @@
           <th class="hidden-xs">收件人</th>
           <th class="hidden-xs">訂單金額</th>
           <th class="hidden-xs">發票</th>
-          <th class="hidden-xs">訂單狀態</th>
           <th class="hidden-xs">運送代碼</th>
         </tr>
       </thead>
@@ -38,7 +37,6 @@
             <td class="hidden-xs"><%= data.items[key].shippingLastname + data.items[key].shippingFirstname%></td>
             <td class="hidden-xs">$ <%= data.items[key].totalIncludeTax %></td>
             <td class="hidden-xs"><%= data.items[key].invoicePrefix %>-<%= data.items[key].invoiceNo %></td>
-            <td class="hidden-xs"><%= __(`${data.items[key].OrderStatus.name}`) %></td>
             <td class="hidden-xs"><%= data.items[key].shippingCode %></td>
           </tr>
           <tr class="order-content">
@@ -51,6 +49,7 @@
                       <th>單價</th>
                       <th>數量</th>
                       <th>小計</th>
+                      <th>訂單狀態</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -60,6 +59,60 @@
                         <td>$ <%= data.items[key].OrderProducts[p].regularPrice %></td>
                         <td><%= data.items[key].OrderProducts[p].quantity %></td>
                         <td>$ <%= data.items[key].OrderProducts[p].regularTotal %></td>
+                        <td>
+                          <%
+                            switch(data.items[key].SupplierShipOrders[p].status){
+                              case "NEW": 
+                                %>新訂單<%
+                                break;
+                              case "PAID": 
+                                %>已付款<%
+                                break;
+                              case "PROCESSING": 
+                                %>處理中<%
+                                break;
+                              case "SHIPPED": 
+                                %>已出貨<%
+                                break;
+                              case "CANCELLED": 
+                                %>取消<%
+                                break;
+                              case "COMPLETED": 
+                                %>完成訂單<%
+                                break;
+                              case "DENIED": 
+                                %>拒絕<%
+                                break;
+                              case "CANCELED REVERSAL": 
+                                %>取消退貨<%
+                                break;
+                              case "FAILED": 
+                                %>失敗<%
+                                break;
+                              case "REFUNDED": 
+                                %>退款<%
+                                break;
+                              case "REVERSED": 
+                                %>撤銷<%
+                                break;
+                              case "CHARGEBACK": 
+                                %>交易糾紛<%
+                                break;
+                              case "PENDING": 
+                                %>待處理<%
+                                break;
+                              case "VOIDED": 
+                                %>反悔訂單<%
+                                break;
+                              case "PROCESSED": 
+                                %>已處理<%
+                                break;
+                              case "EXPIRED": 
+                                %>已過期<%
+                                break;
+                            }
+                          %>
+                        </td>
                       </tr>
                     <% } %>
                   </tbody>
