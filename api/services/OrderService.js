@@ -89,7 +89,6 @@ module.exports = {
 
       let displayName = firstName + ' ' + lastName;
       const user = await User.findById(data.UserId);
-      sails.log('user=>', user)
       const isTw = user && user.dataValues.locale === 'zh_TW';
 
       var regExp = /^[\d|a-zA-Z| ]+$/;
