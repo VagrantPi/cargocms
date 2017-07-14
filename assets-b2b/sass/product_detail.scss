@@ -4,6 +4,11 @@
     margin-top: 1px;
   }
   > .row {
+    @media screen and (min-width: 991px) {
+      .flexslider {
+        position: fixed;
+      }
+    }
     .col-md-6 {
       padding: 0;
       &.b2b-product-detail-content {
@@ -11,6 +16,10 @@
         padding-top: 24px;
         padding-left: 82px;
         padding-right: 2.5em;
+        @media screen and (min-width: 991px) {
+          position: relative;
+          left: 50%;
+        }
         @media screen and (max-width: 1230px) {
           padding-left: 3em;
         }
