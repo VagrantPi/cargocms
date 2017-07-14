@@ -25,10 +25,9 @@
     <div class="row">
         <div class="flexslider col-md-12">
           <ul class="slides">
-            <% var count=0;for(var key in layoutImages.banners) { %>
-               count++;
+            <% for(var key in layoutImages.banners) { %>
               <li>
-                  <img class="product-image-cover" src="<%= layoutImages.banners[key][count].url %>" alt="">
+                <img class="product-image-cover" src="<%= layoutImages.banners[key][0].url %>" alt="">
                </li>
             <% } %>
           </ul>
