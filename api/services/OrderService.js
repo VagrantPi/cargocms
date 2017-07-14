@@ -82,6 +82,32 @@ module.exports = {
       data.marketingId = 0;
       data.languageId = 0;
 
+
+
+      const firstName = data.firstname;
+      const lastName = data.lastname;
+
+      let displayName = firstName + ' ' + lastName;
+      const user = await User.findById(data.UserId);
+      sails.log('user=>', user)
+      const isTw = user && user.dataValues.locale === 'zh_TW';
+
+      var regExp = /^[\d|a-zA-Z| ]+$/;
+      var checkEng = regExp.test(displayName);
+
+      if (!checkEng) {
+        displayName = lastName + firstName;
+      } else if(isTw){
+        displayName = lastName + firstName;
+      }
+
+      if (displayName === '') {
+        displayName = this.getDataValue('email');
+      }
+
+      data.displayName = displayName;
+
+
       // if (data.telephone ==! data.shippingTelephone) {
       //   data.telephone = data.shippingTelephone;
       // }

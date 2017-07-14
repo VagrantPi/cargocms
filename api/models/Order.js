@@ -363,30 +363,7 @@ module.exports = {
     },
 
     displayName: {
-      type: Sequelize.VIRTUAL,
-      get: function() {
-        const firstName = this.getDataValue('firstname');
-        const lastName = this.getDataValue('lastname');
-
-        let displayName = firstName + ' ' + lastName;
-        const user = this.getDataValue('User');
-        const isTw = user && user.locale === 'zh_TW';
-
-        var regExp = /^[\d|a-zA-Z| ]+$/;
-        var checkEng = regExp.test(displayName);
-
-        if (!checkEng) {
-          displayName = lastName + firstName;
-        } else if(isTw){
-          displayName = lastName + firstName;
-        }
-
-        if (displayName === '') {
-          displayName = this.getDataValue('email');
-        }
-
-        return displayName;
-      }
+      type: Sequelize.STRING(65),
     },
 
   },
