@@ -12,10 +12,29 @@ module.exports = {
       unique: true
     },
     firstName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      set: function(val) {
+        this.setDataValue('firstName', val)
+        this.setDataValue('displayName', val);
+      }
     },
     lastName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      set: function(val) {
+        this.setDataValue('lastName', val);
+        let myDisplayName = this.getDataValue('displayName');
+        const user = this.getDataValue('User');
+        const isTw = user && user.locale === 'zh_TW';
+
+        var regExp = /^[\d|a-zA-Z| ]+$/;
+        var checkEng = regExp.test(myDisplayName);
+        if (!checkEng) {
+          myDisplayName = val + myDisplayName;
+        } else if(isTw) {
+          myDisplayName = val + myDisplayName;
+        }
+        this.setDataValue('displayName', myDisplayName);
+      }
     },
     birthday:{
       type: Sequelize.DATE,
@@ -60,33 +79,16 @@ module.exports = {
       defaultValues: 'zh_TW'
     },
     displayName: {
-      type: Sequelize.VIRTUAL,
-      get: function() {
-        const locale = this.getDataValue('locale');
-        const firstName = this.getDataValue('firstName');
-        const lastName = this.getDataValue('lastName');
-
-        let displayName = firstName + ' ' + lastName;
-        const isTw = locale === 'zh_TW';
-
-        var regExp = /^[\d|a-zA-Z| ]+$/;
-        var checkEng = regExp.test(displayName);
-
-        if (!checkEng) {
-          displayName = lastName + firstName;
-        } else if(isTw){
-          displayName = lastName + firstName;
-        }
-
-        if (displayName === '') {
+      type: Sequelize.STRING(65),
+      set: function(val) {
+        if(_.isNil(val)) {
           if (this.getDataValue('username') === ''){
-            displayName = this.getDataValue('email');
+            const displayName = this.getDataValue('email');
           } else {
-            displayName = this.getDataValue('username');
+            const displayName = this.getDataValue('username');
           }
+          this.setDataValue('displayName', displayName);
         }
-
-        return displayName;
       }
     },
     rolesArray: {
