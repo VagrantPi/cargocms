@@ -104,6 +104,14 @@ module.exports = {
       url: 'http://i.imgur.com/Z2K6d9T.jpg',
       dimension: '1500x1001',
     }],
+    indexLogo: [{
+      url: 'http://i.imgur.com/hKtnFZ6.jpg',
+      dimension: '129x149',
+    }],
+    bannerLogo: [{
+      url: 'http://i.imgur.com/7fyFBp4.jpg',
+      dimension: '107x49',
+    }],
   }
 
 };

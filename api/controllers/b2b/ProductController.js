@@ -14,25 +14,25 @@ module.exports = {
        */
       let {start, length, category, supplier, limit, q, sort, sortDir = 'asc'} = req.query;
       category = Number(category);
-      
+
       if( !category && q ) {
         category = 0;
       } else if ( !category && !q ) {
         category = 1;
-      } 
+      }
       // 防錯
       if(sort && sort.split('|').length > 1)
         [sort, sortDir] = sort.split('|');
       sort = UtilsService.findInArray(['price', 'time'], sort);
       sortDir = UtilsService.findInArray(['asc', 'desc'], sortDir.toLowerCase());
-      
+
       const result = await ProductService.find({
         start,
         length,
         supplierId: supplier,
         categoryId: category,
         limit,
-        keyword: q, 
+        keyword: q,
         sortBy: (sort === 'time') ? 'createdAt' : sort,
         sortDir
       });
@@ -50,7 +50,7 @@ module.exports = {
       // categorys = categorys.map(function( category ){
       //   return category.CategoryDescription.name;
       // });
-      
+
       q = (!q) ? '' : q;
 
       res.view('index',
@@ -63,6 +63,7 @@ module.exports = {
           },
           layoutImages: {
             banner: sails.config.layoutImages.banner[0],
+            indexLogo: sails.config.layoutImages.indexLogo[0],
           },
           errors: req.flash('error')[0],
         }
@@ -78,11 +79,15 @@ module.exports = {
         where: {
           id: req.params.id
         },
-        include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage]
+        include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
+      sails.log('banner=>', sails.config.layoutImages.bannerLogo)
       res.view('b2b/product/detail',{
         data: {
           item,
+        },
+        layoutImages: {
+          bannerLogo: sails.config.layoutImages.bannerLogo[0],
         }
       });
     } catch (e) {
