@@ -50,3 +50,6 @@
 * 新增 specification
 * 新增 story
 * 新增 preautions
+
+### Order 欄位修改
+* 新增 displayName

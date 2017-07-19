@@ -1,3 +1,4 @@
+import _ from 'lodash';
 
 module.exports = {
   attributes: {
@@ -43,10 +44,29 @@ module.exports = {
     firstname: {
       type: Sequelize.STRING(32),
       allowNull: false,
+      set: function(val) {
+        this.setDataValue('firstname', val)
+        this.setDataValue('displayName', val);
+      }
     },
     lastname: {
       type: Sequelize.STRING(32),
       allowNull: false,
+      set: function(val) {
+        this.setDataValue('lastname', val);
+        let myDisplayName = this.getDataValue('displayName');
+        const user = this.getDataValue('User');
+        const isTw = user && user.locale === 'zh_TW';
+
+        var regExp = /^[\d|a-zA-Z| ]+$/;
+        var checkEng = regExp.test(myDisplayName);
+        if (!checkEng) {
+          myDisplayName = val + myDisplayName;
+        } else if(isTw) {
+          myDisplayName = val + myDisplayName;
+        }
+        this.setDataValue('displayName', myDisplayName);
+      }
     },
     email: {
       type: Sequelize.STRING(96),
@@ -363,29 +383,12 @@ module.exports = {
     },
 
     displayName: {
-      type: Sequelize.VIRTUAL,
-      get: function() {
-        const firstName = this.getDataValue('firstname');
-        const lastName = this.getDataValue('lastname');
-
-        let displayName = firstName + ' ' + lastName;
-        const user = this.getDataValue('User');
-        const isTw = user && user.locale === 'zh_TW';
-
-        var regExp = /^[\d|a-zA-Z| ]+$/;
-        var checkEng = regExp.test(displayName);
-
-        if (!checkEng) {
-          displayName = lastName + firstName;
-        } else if(isTw){
-          displayName = lastName + firstName;
+      type: Sequelize.STRING(65),
+      set: function(val) {
+        if(_.isNil(val)) {
+          const myEmail = this.getDataValue('email');;
+          this.setDataValue('displayName', myEmail);
         }
-
-        if (displayName === '') {
-          displayName = this.getDataValue('email');
-        }
-
-        return displayName;
       }
     },
 
