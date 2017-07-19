@@ -41,8 +41,8 @@ module.exports = {
       let orderConfirmTemplete = sails.config.mail.templete.orderConfirm;
       let mailSendConfig = {...orderConfirmTemplete, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      let DOMAIN_HOST = process.env.DOMAIN_HOST || 'localhost:5001';
-      let orderConfirmLink = `http://${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`
+      const DOMAIN_HOST = sails.config.appUrl;
+      let orderConfirmLink = `${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -72,8 +72,8 @@ module.exports = {
       let orderToShopConfirm = sails.config.mail.templete.orderToShopConfirm;
       let mailSendConfig = {...orderToShopConfirm, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      let DOMAIN_HOST = process.env.DOMAIN_HOST || 'localhost:5001';
-      let orderConfirmLink = `http://${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`
+      const DOMAIN_HOST = sails.config.appUrl;
+      let orderConfirmLink = `${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -317,7 +317,7 @@ module.exports = {
       const checkEmailTemplete = sails.config.mail.templete.checkNewEmail;
       const mailSendConfig = {...checkEmailTemplete, to: email};
       const DOMAIN_HOST = sails.config.appUrl;
-      const url = `${DOMAIN_HOST}${api}`
+      const url = `${DOMAIN_HOST}/${api}`
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { username });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -393,8 +393,8 @@ module.exports = {
       let orderToShopConfirm = sails.config.mail.templete.event.orderCreated;
       let mailSendConfig = {...orderToShopConfirm, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      let DOMAIN_HOST = process.env.DOMAIN_HOST || 'localhost:5001';
-      let orderInfoLink = `http://${DOMAIN_HOST}/orderinfo/${orderSerialNumber}`
+      const DOMAIN_HOST = sails.config.appUrl;
+      let orderInfoLink = `${DOMAIN_HOST}/orderinfo/${orderSerialNumber}`
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
