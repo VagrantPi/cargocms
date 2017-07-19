@@ -42,6 +42,11 @@ module.exports = {
       });
       categorys = categorys.map((category) => category.toJSON());
 
+      categorys = categorys.filter((item) => {
+        sails.log('item=>', item)
+        if(item.CategoryDescription !== null) return true;
+      });
+
       // categorys = categorys.map(function( category ){
       //   return category.CategoryDescription.name;
       // });
