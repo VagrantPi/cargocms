@@ -149,8 +149,10 @@
 
 	// Load form valisation dependency
 	loadScript("/assets/admin/js/plugin/jquery-form/jquery-form.min.js", function () {
-		loadScript("/assets/admin/js/plugin/summernote/summernote.min.js", function(){
-			loadScript("/assets/admin/js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", pagefunction);
+		loadScript("/assets/admin/js/plugin/summernote/summernote.min.js", function() {
+      loadScript("/assets/admin/js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js", function() {
+        loadScript("/assets/b2b/lib/lodash.min.js", pagefunction)
+      });
 		});
 	});
 

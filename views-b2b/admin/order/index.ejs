@@ -54,6 +54,7 @@
       <th width="" class="createdAt" data-hide="always"> 建立時間</th>
       <th width="" class="status" data-class="status" data-hide=""> 訂單狀態</th>
 			<th width="120px" class="operate" data-hide="phone,tablet">操作</th>
+      <th width="" class="displayName" data-hide="always"> displayName</th>
 		</tr>
 	</thead>
 	<!-- client only -->
@@ -104,6 +105,7 @@
 					</a>
 				</div>
 			</td>
+      <td>{{ item.displayName }}</td>
 		</tr>
 	</tbody>
  </table>
@@ -151,7 +153,8 @@
       // { "data": "userAgent" },
       { "data": "createdAt"},
       { "data": null },
-			{ "data": null }
+			{ "data": null },
+      { "data": "displayName"},
 		]
 
 		// server only
@@ -176,7 +179,7 @@
       {
         "targets": "tax",
         "render": function (data, type, row) {
-          return '<td> $' + row.formatTax + '</td>';
+          return '<td> $' + row.regularTax + '</td>';
         }
       },
       {

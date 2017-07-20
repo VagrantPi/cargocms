@@ -174,7 +174,10 @@ $(document).ready(function() {
 			},
 			zipcode: {
 				required: true
-			}
+			},
+      paymentMethod: {
+        required: true
+      },
 		},
 		messages: {
 			firstname: {
@@ -214,7 +217,10 @@ $(document).ready(function() {
 			},
 			zipcode: {
 				required: "請輸入郵遞區號"
-			}
+			},
+      paymentMethod: {
+        required: "請選擇付款方式"
+      }
 		}
 	});
 

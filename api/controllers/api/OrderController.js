@@ -61,17 +61,13 @@ module.exports = {
         const result = await Config.findOne({
           where: { key: 'ATM' }
         })
-        sails.log('result.dataValues=>', result.dataValues)
         const bankName = JSON.parse(result.dataValues.value)[0];
-        sails.log('JSON.Parse(result.dataValues.value)=>', JSON.parse(result.dataValues.value))
-        sails.log('JSON.Parse(result.dataValues.value)[0]=>', JSON.parse(result.dataValues.value)[0])
         const ATMInfo = JSON.parse(result.dataValues.description);
         const bankId = ATMInfo.bankId;
         const account = ATMInfo.account;
 
         if(order.paymentMethod === 'ATM') {
           mailMessage.UseATM = `如果確認訂單無誤請盡快匯款，以利出貨流程<br />銀行名稱: ${bankName}  代號: ${bankId}<br />ATM帳號: ${account}`;
-          sails.log('mailMessage.UseATM=>', mailMessage.UseATM)
         } else {
           mailMessage.UseATM = '';
         }
@@ -170,7 +166,7 @@ module.exports = {
         where: {
           UserId: user.id
         },
-        include: [OrderStatus, OrderProduct],
+        include: [OrderStatus, OrderProduct, SupplierShipOrder],
         order: [
           ['createdAt', 'DESC']
         ],

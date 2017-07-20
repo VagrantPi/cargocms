@@ -82,13 +82,6 @@ module.exports = {
       data.marketingId = 0;
       data.languageId = 0;
 
-      // if (data.telephone ==! data.shippingTelephone) {
-      //   data.telephone = data.shippingTelephone;
-      // }
-      // if (data.email ==! data.shippingEmail) {
-      //   data.email = data.shippingEmail;
-      // }
-
       await OrderService.updateUserData({
         userId: data.UserId, email: data.email, phone1: data.telephone, transaction
       });

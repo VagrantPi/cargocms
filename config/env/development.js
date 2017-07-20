@@ -100,5 +100,13 @@ module.exports = {
       url: 'http://i.imgur.com/FOsJclZ.jpg',
       dimension: '1500x362',
     }],
+    indexLogo: [{
+      url: 'http://i.imgur.com/hKtnFZ6.jpg',
+      dimension: '129x149',
+    }],
+    bannerLogo: [{
+      url: 'http://i.imgur.com/7fyFBp4.jpg',
+      dimension: '107x49',
+    }],
   }
 };
