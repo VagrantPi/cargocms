@@ -53,3 +53,6 @@
 
 ### Order 欄位修改
 * 新增 displayName
+
+### User 欄位修改
+* 新增 displayName
