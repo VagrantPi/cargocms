@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 module.exports = {
   index: async (req, res) => {
     try{
@@ -52,7 +54,11 @@ module.exports = {
       // });
       let banners = {};
       for(let item in sails.config.layoutImages) {
-        banners[item] = (sails.config.layoutImages[item])
+        if(_.hasIn(sails.config, `layoutImages.banner[${item}][0]`)) {
+          banners[item] = (sails.config.layoutImages[item][0])
+        } else {
+          banners[item].url = "";
+        }
       }
 
       q = (!q) ? '' : q;
@@ -66,7 +72,7 @@ module.exports = {
             {start, length, category: category.toString(), supplier, limit, q, sort, sortDir}),
           },
           layoutImages: {
-            banner: sails.config.layoutImages.banner[0],
+            banner: banners,
             indexLogo: sails.config.layoutImages.indexLogo[0],
           },
           errors: req.flash('error')[0],
