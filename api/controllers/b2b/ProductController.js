@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 module.exports = {
   index: async (req, res) => {
     try{
@@ -43,15 +45,34 @@ module.exports = {
       categorys = categorys.map((category) => category.toJSON());
 
       categorys = categorys.filter((item) => {
-        sails.log('item=>', item)
         if(item.CategoryDescription !== null) return true;
       });
 
       // categorys = categorys.map(function( category ){
       //   return category.CategoryDescription.name;
       // });
+      
+      let banners = {};
+      for(let item in sails.config.layoutImages) {
+        if(item.indexOf('banner-') === 0) {
+          if(_.hasIn(sails.config, `layoutImages[${item}][0]`)) {
+            banners[item] = sails.config.layoutImages[item][0];
+          } else {
+            banners.item = {};
+            banners.item.url = "";
+          }
+        }
+      }
 
       q = (!q) ? '' : q;
+      
+      let indexLogo = {};
+
+      if(_.hasIn(sails.config, 'layoutImages.indexLogo[0]')) {
+        indexLogo = sails.config.layoutImages.indexLogo[0];
+      } else {
+        indexLogo.url = "";
+      }
 
       res.view('index',
         {
@@ -62,8 +83,8 @@ module.exports = {
             {start, length, category: category.toString(), supplier, limit, q, sort, sortDir}),
           },
           layoutImages: {
-            banner: sails.config.layoutImages.banner[0],
-            indexLogo: sails.config.layoutImages.indexLogo[0],
+            banners: banners,
+            indexLogo: indexLogo,
           },
           errors: req.flash('error')[0],
         }
@@ -81,13 +102,20 @@ module.exports = {
         },
         include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
-      sails.log('banner=>', sails.config.layoutImages.bannerLogo)
+   
+      let bannerLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.banner[0]')) {
+        bannerLogo = sails.config.layoutImages.bannerLogo[0];
+      } else {
+        bannerLogo.url = "";
+      }
+
       res.view('b2b/product/detail',{
         data: {
           item,
         },
         layoutImages: {
-          bannerLogo: sails.config.layoutImages.bannerLogo[0],
+          bannerLogo: bannerLogo,
         }
       });
     } catch (e) {

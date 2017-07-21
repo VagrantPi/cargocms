@@ -4,5 +4,6 @@ ALTER TABLE `ProductDescriptions` ADD `specification` text;
 ALTER TABLE `ProductDescriptions` ADD `story` text;
 ALTER TABLE `ProductDescriptions` ADD `precautions` text;
 
-ALTER TABLE `Orders` ADD `test` VARCHAR(65);
+ALTER TABLE `Orders` ADD `displayName` VARCHAR(65);
+ALTER TABLE `Users` ADD `displayName` VARCHAR(65);
 
