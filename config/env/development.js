@@ -104,7 +104,7 @@ module.exports = {
       url: 'http://i.imgur.com/hKtnFZ6.jpg',
       dimension: '129x149',
     }],
-    bannerLogo: [{
+    navbarLogo: [{
       url: 'http://i.imgur.com/7fyFBp4.jpg',
       dimension: '107x49',
     }],

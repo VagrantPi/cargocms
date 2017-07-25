@@ -7,9 +7,9 @@
           <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span v-text="carts.length" v-show="carts.length > 0" class="badge"></span><span class="caret"></span>
         </a>
       </div>
-      <% let bannerLogo = (typeof layoutImages.bannerLogo !== 'undefined') ? (layoutImages.bannerLogo||{}) : {} %>
-      <% if(typeof bannerLogo.url === 'undefined') bannerLogo.url = ""; %>
-      <a class="navbar-brand navbar-center" style="background-image: url(<%- bannerLogo.url %>)" href="#"></a>
+      <% let navbarLogo = (typeof layoutImages.navbarLogo !== 'undefined') ? (layoutImages.navbarLogo||{}) : {} %>
+      <% if(typeof navbarLogo.url === 'undefined') navbarLogo.url = ""; %>
+      <a class="navbar-brand navbar-center" style="background-image: url(<%- navbarLogo.url %>)" href="/"></a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>

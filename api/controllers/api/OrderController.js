@@ -137,6 +137,13 @@ module.exports = {
         }
       })
 
+      let navbarLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+        navbarLogo = sails.config.layoutImages.navbarLogo[0];
+      } else {
+        navbarLogo.url = "";
+      }
+
       message = 'get Order info success';
       
       res.view('b2b/order/index', {
@@ -145,6 +152,9 @@ module.exports = {
           item: order,
           product: orderProduct,
           paymentMethods: sails.config.paymentMethods
+        },
+        layoutImages: {
+          navbarLogo: navbarLogo,
         }
       });
 
@@ -172,11 +182,21 @@ module.exports = {
         ],
       })
 
+      let navbarLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+        navbarLogo = sails.config.layoutImages.navbarLogo[0];
+      } else {
+        navbarLogo.url = "";
+      }
+
       message = 'get order history success.';
       res.view('b2b/order/orderhistory', {
         message,
         data: {
           items
+        },
+        layoutImages: {
+          navbarLogo: navbarLogo,
         }
       });
 

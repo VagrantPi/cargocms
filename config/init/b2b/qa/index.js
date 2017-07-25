@@ -241,8 +241,8 @@ ATM轉帳帳號資訊如下：
         type: 'internal-event'
       });
 
-      const atmObj = JSON.parse(sails.config.paymentMethods);
-      const atmObjectOther = JSON.parse(atmObj[0].other);
+      const atmObj = JSON.parse(JSON.stringify(sails.config.paymentMethods));
+      const atmObjectOther = JSON.parse(atmObj.origin[0].other);
       const atmAccount = atmObjectOther.account;
       await Event.create({
         title: '下完訂單後，我該如何付款？',

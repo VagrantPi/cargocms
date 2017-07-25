@@ -1,3 +1,4 @@
+import _ from 'lodash';
 module.exports = {
   orderForm: async (req, res) => {
     if (!AuthService.isAuthenticated(req)){
@@ -18,6 +19,12 @@ module.exports = {
     paymentMethodObj.forEach((item) => {
       paymentMethodArray.push(item.type);
     })
+    let navbarLogo = {};
+    if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+      navbarLogo = sails.config.layoutImages.navbarLogo[0];
+    } else {
+      navbarLogo.url = "";
+    }
 
     res.view(
       'b2b/order/form',
@@ -25,6 +32,9 @@ module.exports = {
         token,
         data: {
           paymentMethods: sails.config.paymentMethods
+        },
+        layoutImages: {
+          navbarLogo: navbarLogo,
         }
       }
     );
