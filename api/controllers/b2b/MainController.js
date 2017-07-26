@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
+import _ from 'lodash';
 
 module.exports = {
 
@@ -16,8 +17,17 @@ module.exports = {
         req.flash('title', '恭喜您註冊完成！');
         req.flash('info', '請再次確認以下資料皆正確無誤，並請您到註冊時的信箱收取確認信以開通帳號！');
       }
+      let navbarLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+        navbarLogo = sails.config.layoutImages.navbarLogo[0];
+      } else {
+        navbarLogo.url = "";
+      }
       return res.view({
         user: user,
+        layoutImages: {
+          navbarLogo: navbarLogo
+        }
       });
     } catch (e) {
       res.serverError(e);

@@ -103,11 +103,11 @@ module.exports = {
         include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
    
-      let bannerLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.banner[0]')) {
-        bannerLogo = sails.config.layoutImages.bannerLogo[0];
+      let navbarLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+        navbarLogo = sails.config.layoutImages.navbarLogo[0];
       } else {
-        bannerLogo.url = "";
+        navbarLogo.url = "";
       }
 
       res.view('b2b/product/detail',{
@@ -115,7 +115,7 @@ module.exports = {
           item,
         },
         layoutImages: {
-          bannerLogo: bannerLogo,
+          navbarLogo: navbarLogo,
         }
       });
     } catch (e) {

@@ -61,7 +61,12 @@
                         <td>$ <%= data.items[key].OrderProducts[p].regularTotal %></td>
                         <td>
                           <%
-                            switch(data.items[key].SupplierShipOrders[p].status){
+                            if(typeof data.items[key].SupplierShipOrders[p] === 'undefined')  {
+                              orderStatus = 'NEW';
+                            } else {
+                              orderStatus = data.items[key].SupplierShipOrders[p].status;
+                            }
+                            switch(orderStatus){
                               case "NEW": 
                                 %>新訂單<%
                                 break;
