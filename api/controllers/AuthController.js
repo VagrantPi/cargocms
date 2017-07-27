@@ -6,6 +6,7 @@
  * the basics of Passport.js to work.
  */
 const url = require('url');
+import _ from 'lodash';
 
 module.exports = {
   login: function(req, res) {
@@ -74,10 +75,18 @@ module.exports = {
         if (isRegist) user = form;
       }
 
+      let navbarLogo = {};
+      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
+        navbarLogo = sails.config.layoutImages.navbarLogo[0];
+      } else {
+        navbarLogo.url = "";
+      }
+
       res.ok({
         user,
         errors: req.flash('error'),
-        reCAPTCHAKey: sails.config.reCAPTCHA.key
+        reCAPTCHAKey: sails.config.reCAPTCHA.key,
+        layoutImages: { navbarLogo: navbarLogo }
       });
     } catch (e) {
       res.serverError(e);
