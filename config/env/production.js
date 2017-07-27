@@ -121,8 +121,8 @@ module.exports = {
       dimension: '1500x362',
     }],
     indexLogo: [{
-      url: 'http://i.imgur.com/hKtnFZ6.jpg',
-      dimension: '129x149',
+      url: 'http://i.imgur.com/TIEs8Rg.jpg',
+      dimension: '150x150',
     }],
     navbarLogo: [{
       url: 'http://i.imgur.com/7fyFBp4.jpg',
