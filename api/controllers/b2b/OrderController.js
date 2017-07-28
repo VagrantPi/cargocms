@@ -19,23 +19,18 @@ module.exports = {
     paymentMethodObj.forEach((item) => {
       paymentMethodArray.push(item.type);
     })
-    let navbarLogo = {};
-    if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-      navbarLogo = sails.config.layoutImages.navbarLogo[0];
-    } else {
-      navbarLogo.url = "";
-    }
+
+    const navbarLogo = ConfigService.getLogo('navbarLogo');
 
     res.view(
       'b2b/order/form',
       {
         token,
         data: {
-          paymentMethods: sails.config.paymentMethods
+          paymentMethods: sails.config.paymentMethods,
+          layoutImages: { navbarLogo },
         },
-        layoutImages: {
-          navbarLogo: navbarLogo,
-        }
+
       }
     );
   },

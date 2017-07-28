@@ -52,7 +52,7 @@ module.exports = {
   },
 
   register: async (req, res) => {
-    if(AuthService.isAuthenticated(req)) return res.redirect('/');
+    if (AuthService.isAuthenticated(req)) return res.redirect('/');
     try {
       let user = {
         username: '',
@@ -75,18 +75,13 @@ module.exports = {
         if (isRegist) user = form;
       }
 
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
 
-      res.ok({
+      return res.ok({
         user,
         errors: req.flash('error'),
         reCAPTCHAKey: sails.config.reCAPTCHA.key,
-        layoutImages: { navbarLogo: navbarLogo }
+        layoutImages: { navbarLogo },
       });
     } catch (e) {
       res.serverError(e);
@@ -168,7 +163,7 @@ module.exports = {
           return res.ok({
             success: true,
             message: '',
-            data: { 
+            data: {
               jwtToken,
               url,
             }

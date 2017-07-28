@@ -51,43 +51,33 @@ module.exports = {
       // categorys = categorys.map(function( category ){
       //   return category.CategoryDescription.name;
       // });
-      
+
       let banners = {};
       for(let item in sails.config.layoutImages) {
         if(item.indexOf('banner-') === 0) {
-          if(_.hasIn(sails.config, `layoutImages[${item}][0]`)) {
-            banners[item] = sails.config.layoutImages[item][0];
-          } else {
-            banners.item = {};
-            banners.item.url = "";
-          }
+          banners[item] = ConfigService.getLogo(item);
         }
       }
+      ConfigService.getLogo('indexLogo');
 
       q = (!q) ? '' : q;
-      
-      let indexLogo = {};
 
-      if(_.hasIn(sails.config, 'layoutImages.indexLogo[0]')) {
-        indexLogo = sails.config.layoutImages.indexLogo[0];
-      } else {
-        indexLogo.url = "";
-      }
+      const indexLogo = ConfigService.getLogo('indexLogo');
 
       res.view('index',
         {
           data:{
             items: result,
             categorys,
+            layoutImages: {
+              banners,
+              indexLogo,
+            },
             query: Object.assign({start: '', length: '', category: '', supplier: '', limit: '', q: '', sort: '', sortDir: ''},
             {start, length, category: category.toString(), supplier, limit, q, sort, sortDir}),
           },
-          layoutImages: {
-            banners: banners,
-            indexLogo: indexLogo,
-          },
           errors: req.flash('error')[0],
-        }
+        },
       );
     } catch (e) {
       sails.log.error(e);
@@ -102,21 +92,14 @@ module.exports = {
         },
         include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
-   
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
+
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
 
       res.view('b2b/product/detail',{
         data: {
           item,
+          layoutImages: { navbarLogo },
         },
-        layoutImages: {
-          navbarLogo: navbarLogo,
-        }
       });
     } catch (e) {
       sails.log.error(e);

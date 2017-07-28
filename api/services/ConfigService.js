@@ -192,6 +192,16 @@ module.exports = {
     } catch (e) {
       throw e;
     }
-  }
+  },
+
+  getLogo: (item) => {
+    let navbarLogo = {}
+    if (_.hasIn(sails.config, `layoutImages.[${item}][0]`)) {
+      navbarLogo = sails.config.layoutImages[item][0];
+    } else {
+      navbarLogo.url = '';
+    }
+    return navbarLogo;
+  },
 
 }
