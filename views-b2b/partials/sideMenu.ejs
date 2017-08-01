@@ -6,7 +6,9 @@
 </div>
 
 <aside class="b2b-side-nav">
-  <div class="logo-text" style="background-image: url(<%- layoutImages.indexLogo.url %>)"></div>
+  <% let result = (typeof data.layoutImages !== 'undefined') ? data.layoutImages : {} %>
+  <% let indexLogo = (typeof result.indexLogo !== 'undefined') ? (result.indexLogo||{}) : {} %>
+  <div class="logo-text" style="background-image: url(<%- indexLogo.url %>)"></div>
   <ul class="b2b-side-nav-list">
     <% if(data.query.q) { %>
       <li><a class="active" style="font-size:24px;">搜尋結果</a></li>

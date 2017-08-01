@@ -56,7 +56,7 @@ module.exports = {
         mailMessage.shipmentAddress = order.shippingAddress1;
         mailMessage.note = order.comment;
         mailMessage.phone = order.telephone;
-        
+
 
         const result = await Config.findOne({
           where: { key: 'ATM' }
@@ -137,25 +137,18 @@ module.exports = {
         }
       })
 
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
 
       message = 'get Order info success';
-      
+
       res.view('b2b/order/index', {
         message: message,
         data: {
           item: order,
           product: orderProduct,
-          paymentMethods: sails.config.paymentMethods
+          paymentMethods: sails.config.paymentMethods,
+          layoutImages: { navbarLogo },
         },
-        layoutImages: {
-          navbarLogo: navbarLogo,
-        }
       });
 
     } catch (e) {
@@ -182,22 +175,15 @@ module.exports = {
         ],
       })
 
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
 
       message = 'get order history success.';
       res.view('b2b/order/orderhistory', {
         message,
         data: {
-          items
+          items,
+          layoutImages: { navbarLogo },
         },
-        layoutImages: {
-          navbarLogo: navbarLogo,
-        }
       });
 
     } catch (e) {

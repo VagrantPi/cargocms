@@ -6,6 +6,7 @@
  * the basics of Passport.js to work.
  */
 const url = require('url');
+import _ from 'lodash';
 
 module.exports = {
   login: function(req, res) {
@@ -51,7 +52,7 @@ module.exports = {
   },
 
   register: async (req, res) => {
-    if(AuthService.isAuthenticated(req)) return res.redirect('/');
+    if (AuthService.isAuthenticated(req)) return res.redirect('/');
     try {
       let user = {
         username: '',
@@ -74,10 +75,13 @@ module.exports = {
         if (isRegist) user = form;
       }
 
-      res.ok({
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
+
+      return res.ok({
         user,
         errors: req.flash('error'),
-        reCAPTCHAKey: sails.config.reCAPTCHA.key
+        reCAPTCHAKey: sails.config.reCAPTCHA.key,
+        layoutImages: { navbarLogo },
       });
     } catch (e) {
       res.serverError(e);
@@ -159,7 +163,7 @@ module.exports = {
           return res.ok({
             success: true,
             message: '',
-            data: { 
+            data: {
               jwtToken,
               url,
             }

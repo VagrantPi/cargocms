@@ -17,15 +17,11 @@ module.exports = {
 
       const social = SocialService.forPost({posts});
       const items = posts;
-      const data = {items}
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
 
-      res.view('event/index', {data, social, layoutImages: { navbarLogo: navbarLogo } });
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const data = { items, layoutImages: { navbarLogo }}
+
+      res.view('event/index', { data, social });
     } catch (e) {
       res.serverError(e);
     }
@@ -60,14 +56,11 @@ module.exports = {
       let posts = await Post.findAllHasJoin({order, where});
       const items = posts;
       const sidebarItems = {items}
-      let navbarLogo = {};
-      if(_.hasIn(sails.config, 'layoutImages.navbarLogo[0]')) {
-        navbarLogo = sails.config.layoutImages.navbarLogo[0];
-      } else {
-        navbarLogo.url = "";
-      }
 
-      res.view('event/show', {data, social, sidebarItems, layoutImages: { navbarLogo: navbarLogo } });
+      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      data.layoutImages = { navbarLogo };
+
+      res.view('event/show', { data, social, sidebarItems });
     } catch (e) {
       res.serverError(e);
     }
