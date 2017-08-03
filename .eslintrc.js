@@ -3,9 +3,6 @@ module.exports = {
 		"airbnb-base",
 		".eslintrc-sails"
 	],
-	"globals": [
-		"Sequelize"
-	],
 	"plugins": [
 		"import"
 	]
