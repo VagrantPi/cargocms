@@ -41,8 +41,7 @@ module.exports = {
       let orderConfirmTemplete = sails.config.mail.templete.orderConfirm;
       let mailSendConfig = {...orderConfirmTemplete, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      const DOMAIN_HOST = MessageService.checkBackslash(sails.config.appUrl);
-      const orderConfirmLink = `${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`;
+      const orderConfirmLink = UtilsService.getUrl(`order/paymentConfirm?serial=${orderSerialNumber}`);
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -72,8 +71,7 @@ module.exports = {
       let orderToShopConfirm = sails.config.mail.templete.orderToShopConfirm;
       let mailSendConfig = {...orderToShopConfirm, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      const DOMAIN_HOST = MessageService.checkBackslash(sails.config.appUrl);
-      const orderConfirmLink = `${DOMAIN_HOST}/order/paymentConfirm?serial=${orderSerialNumber}`;
+      const orderConfirmLink = UtilsService.getUrl(`order/paymentConfirm?serial=${orderSerialNumber}`);
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -192,8 +190,7 @@ module.exports = {
     try {
       let forgotPasswordTemplete = sails.config.mail.templete.forgotPassword;
       let mailSendConfig = {...forgotPasswordTemplete, to: email};
-      const DOMAIN_HOST = MessageService.checkBackslash(sails.config.appUrl);
-      const url = `${DOMAIN_HOST}${api}`;
+      const url = UtilsService.getUrl(api);
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { username });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -316,8 +313,7 @@ module.exports = {
     try {
       const checkEmailTemplete = sails.config.mail.templete.checkNewEmail;
       const mailSendConfig = { ...checkEmailTemplete, to: email };
-      const DOMAIN_HOST = MessageService.checkBackslash(sails.config.appUrl);
-      const url = `${DOMAIN_HOST}/${api}`;
+      const url = UtilsService.getUrl(api);
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { username });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -393,8 +389,7 @@ module.exports = {
       let orderToShopConfirm = sails.config.mail.templete.event.orderCreated;
       let mailSendConfig = {...orderToShopConfirm, to: result.email};
       let orderSerialNumber = result.serialNumber;
-      const DOMAIN_HOST = MessageService.checkBackslash(sails.config.appUrl);
-      const orderInfoLink = `${DOMAIN_HOST}/orderinfo/${orderSerialNumber}`;
+      const orderInfoLink = UtilsService.getUrl(`orderinfo/${orderSerialNumber}`);
 
       mailSendConfig.subject = sprintf(mailSendConfig.subject, { orderSerialNumber });
       mailSendConfig.html = sprintf(mailSendConfig.html, {
@@ -436,10 +431,4 @@ module.exports = {
     }
   },
 
-  checkBackslash(url) {
-    if (url.endsWith('/')) {
-      return url.substr(0, url.length - 1);
-    }
-    return url;
-  },
 };

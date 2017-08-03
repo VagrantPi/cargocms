@@ -90,5 +90,25 @@ module.exports = {
       if(ele === target)
         return ele;
     return null;
-  }
+  },
+
+  getUrl (api) {
+    try {
+      const DOMAIN_HOST = sails.config.appUrl;
+      let url = `${DOMAIN_HOST}/${api}`;
+      if (url.indexOf('http://') === 0) {
+        url = url.replace(/^http:\/\//g, '');
+        url = url.replace(/\/\//g, '/');
+        return `http://${url}`;
+      } else if (url.indexOf('https://') === 0) {
+        url = url.replace(/^https:\/\//g, '');
+        url = url.replace(/\/\//g, '/');
+        return `https://${url}`;
+      }
+      return url.replace(/\/\//g, '/');
+    } catch (e) {
+      throw e;
+    }
+  },
+
 };
