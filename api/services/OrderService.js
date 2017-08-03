@@ -385,6 +385,36 @@ module.exports = {
       sails.log.error(e);
       throw e;
     }
-  }
+  },
+
+  async getOrderStatus(items) {
+    let statusList = [];
+    if(_.hasIn(items, '0.SupplierShipOrders')) {
+      for (let item of items) {
+        var orderStatusList = [];
+        let itemList = [];
+        for (let sequence of item.OrderProducts) {
+          itemList.push({name: sequence.name, option: sequence.option, id: sequence.ProductId});
+        }
+        for (let orderItem of itemList) {
+          for (let supplierShipOrderItem of item.SupplierShipOrders) {
+            const result = await SupplierShipOrderProduct.findOne({
+              where: {
+                SupplierShipOrderId: supplierShipOrderItem.id,
+                name: orderItem.name,
+                option: orderItem.option,
+                ProductId: orderItem.id
+              }
+            })
+            if(result !== null) {
+              orderStatusList.push(result.status)
+            }
+          }
+        }
+        statusList.push(orderStatusList)
+      }
+    }
+    return statusList;
+  },
 
 }

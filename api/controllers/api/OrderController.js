@@ -173,7 +173,9 @@ module.exports = {
         order: [
           ['createdAt', 'DESC']
         ],
-      })
+      });
+
+      const orderStatus = await OrderService.getOrderStatus(items);
 
       const navbarLogo = ConfigService.getLogo('navbarLogo');
 
@@ -183,6 +185,7 @@ module.exports = {
         data: {
           items,
           layoutImages: { navbarLogo },
+          orderStatus,
         },
       });
 
