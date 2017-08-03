@@ -145,7 +145,7 @@ module.exports = {
 
       let messageConfig = await MessageService.forgotPassword({
         email: user.email,
-        api: `/update/password?token=${token}`,
+        api: `update/password?token=${token}`,
         username: user.displayName,
       });
       let message = await Message.create(messageConfig);
