@@ -194,14 +194,43 @@ module.exports = {
     }
   },
 
-  getLogo: (item) => {
-    let navbarLogo = {}
-    if (_.hasIn(sails.config, `layoutImages.[${item}][0]`)) {
-      navbarLogo = sails.config.layoutImages[item][0];
-    } else {
-      navbarLogo.url = '';
+  getLogos(...items) {
+    try {
+      let layoutImage = {};
+      for(const item of items) {
+        if (item === 'getBanners') {
+          layoutImage.banners = this.getBanners();
+        } else if (_.hasIn(sails.config, `layoutImages.[${item}][0]`)) {
+          layoutImage[item] = sails.config.layoutImages[item][0];
+        } else {
+          layoutImage[item].url = '';
+        }
+      }
+      return layoutImage;
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
     }
-    return navbarLogo;
   },
 
-}
+  getBanners() {
+    try {
+      let banners = {};
+      for(let item in sails.config.layoutImages) {
+        if (item.indexOf('banner-') === 0) {
+          // banners[item] = ;
+          if (_.hasIn(sails.config, `layoutImages.[${item}][0]`)) {
+            banners[item] = sails.config.layoutImages[item][0];
+          } else {
+            banners[item] = '';
+          }
+        }
+      }
+      return banners;
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  },
+
+};
