@@ -162,6 +162,7 @@ module.exports = {
           orderProductCreateData.price = productOption.ProductOptionValue.price;
           orderProductCreateData.tax   = orderProductCreateData.total - ( Math.round(orderProductCreateData.total / (1 + Number(productTaxRate.taxRate))));
           orderProductCreateData.option = productOption.value;
+          orderProductCreateData.ProductOptionId = productOption.id;
         }
 
         if (findProduct.subtract) {
@@ -381,6 +382,39 @@ module.exports = {
       await MessageService.sendMail(mail);
 
       return item;
+    } catch (e) {
+      sails.log.error(e);
+      throw e;
+    }
+  }, 
+
+  async getOrderStatusList(items) {
+    try {
+      let orderList = [];
+      let orderListItem = [];
+      for (const orderItem of items) {  // 每筆訂單的迭代
+        let orderItemList = [];
+        let order = [];
+        orderList.push(orderItem.id);  // 取得訂單 id 順序
+        // let order = [];
+        let SupplierShipOrders = orderItem.SupplierShipOrders;
+        for (const item of orderItem.OrderProducts) {  // 訂單下每筆產品的迭代
+          for (const SupplierShipOrder of orderItem.SupplierShipOrders) { // 該筆訂單有哪些供應商出貨
+            const result = await SupplierShipOrderProduct.findOne({ // 然後檢查該筆訂單的產品是在 SupplierShipOrderProduct 的哪項
+              where: {
+                SupplierShipOrderId: SupplierShipOrder.id,
+                ProductId: item.ProductId,
+                ProductOptionId: item.ProductOptionId,
+              },
+            });
+            if (!_.isNil(result)) {
+              order.push(result.dataValues.status);  // 取得每筆產品的狀態
+            }
+          }
+        }
+        orderListItem.push(order);
+      }
+      return orderListItem;
     } catch (e) {
       sails.log.error(e);
       throw e;

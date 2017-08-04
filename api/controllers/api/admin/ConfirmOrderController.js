@@ -94,10 +94,12 @@ module.exports = {
 
         let supplierName = await Supplier.findById(productSupplierId);
 
+        sails.log('orderProduct=>', orderProduct)
         supplierOrderProduts[productSupplierId].push(
           {
             SupplierShipOrderId: 0,
             ProductId: orderProduct.ProductId,
+            ProductOptionId: orderProduct.ProductOptionId,
             name: orderProduct.name,
             model: orderProduct.model,
             quantity: orderProduct.quantity,
