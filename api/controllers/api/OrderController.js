@@ -175,6 +175,8 @@ module.exports = {
         ],
       })
 
+      const orderStatusList = await OrderService.getOrderStatusList(items);
+
       const navbarLogo = ConfigService.getLogo('navbarLogo');
 
       message = 'get order history success.';
@@ -183,6 +185,7 @@ module.exports = {
         data: {
           items,
           layoutImages: { navbarLogo },
+          orderStatusList,
         },
       });
 

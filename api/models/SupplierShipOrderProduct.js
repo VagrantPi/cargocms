@@ -105,6 +105,7 @@ module.exports = {
   associations: () => {
     SupplierShipOrderProduct.belongsTo(SupplierShipOrder);
     SupplierShipOrderProduct.belongsTo(Product);
+    SupplierShipOrderProduct.belongsTo(ProductOption);
   },
   options: {
     paranoid: true,
