@@ -18,8 +18,9 @@ module.exports = {
       const social = SocialService.forPost({posts});
       const items = posts;
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
-      const data = { items, layoutImages: { navbarLogo }}
+      const layoutImages = ConfigService.getLogos('navbarLogo');
+
+      const data = { items, layoutImages };
 
       res.view('event/index', { data, social });
     } catch (e) {
@@ -57,8 +58,8 @@ module.exports = {
       const items = posts;
       const sidebarItems = {items}
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
-      data.layoutImages = { navbarLogo };
+      const layoutImages = ConfigService.getLogos('navbarLogo');
+      data.layoutImages = layoutImages;
 
       res.view('event/show', { data, social, sidebarItems });
     } catch (e) {

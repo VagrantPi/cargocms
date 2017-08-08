@@ -83,13 +83,13 @@ module.exports = {
         if (isRegist) user = form;
       }
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const layoutImages = ConfigService.getLogos('navbarLogo');
 
       return res.ok({
         user,
         errors: req.flash('error'),
         reCAPTCHAKey: sails.config.reCAPTCHA.key,
-        layoutImages: { navbarLogo },
+        layoutImages,
       });
     } catch (e) {
       res.serverError(e);

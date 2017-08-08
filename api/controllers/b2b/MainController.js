@@ -18,12 +18,12 @@ module.exports = {
         req.flash('info', '請再次確認以下資料皆正確無誤，並請您到註冊時的信箱收取確認信以開通帳號！');
       }
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const layoutImages = ConfigService.getLogos('navbarLogo');
 
       return res.view({
         user: user,
         data: {
-          layoutImages: { navbarLogo },
+          layoutImages,
         },
       });
     } catch (e) {

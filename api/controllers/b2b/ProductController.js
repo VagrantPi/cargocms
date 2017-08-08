@@ -78,12 +78,12 @@ module.exports = {
         include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const layoutImages = ConfigService.getLogos('navbarLogo');
 
       res.view('b2b/product/detail',{
         data: {
           item,
-          layoutImages: { navbarLogo },
+          layoutImages,
         },
       });
     } catch (e) {

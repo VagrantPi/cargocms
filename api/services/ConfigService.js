@@ -197,7 +197,7 @@ module.exports = {
   getLogos(...items) {
     try {
       let layoutImage = {};
-      for(const item of items) {
+      for(let item of items) {
         if (item === 'getBanners') {
           layoutImage.banners = this.getBanners();
         } else if (_.hasIn(sails.config, `layoutImages.[${item}][0]`)) {
