@@ -66,6 +66,9 @@
   .cardbody > div > .sub-title {
     font-size: 12px;
     color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .cardbody > div > .main-title {

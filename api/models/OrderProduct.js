@@ -119,6 +119,7 @@ module.exports = {
   associations: () => {
     OrderProduct.belongsTo(Product);
     OrderProduct.belongsTo(Order);
+    OrderProduct.belongsTo(ProductOption);
   },
   options: {
     paranoid: true,
