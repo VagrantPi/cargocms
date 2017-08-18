@@ -56,3 +56,7 @@
 
 ### User 欄位修改
 * 新增 displayName
+
+## v6
+### 新增 Config table
+
