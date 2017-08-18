@@ -137,7 +137,7 @@ module.exports = {
         }
       })
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const layoutImages = ConfigService.getLogos('navbarLogo');
 
       message = 'get Order info success';
 
@@ -147,7 +147,7 @@ module.exports = {
           item: order,
           product: orderProduct,
           paymentMethods: sails.config.paymentMethods,
-          layoutImages: { navbarLogo },
+          layoutImages,
         },
       });
 
@@ -175,16 +175,18 @@ module.exports = {
         ],
       })
 
+
+      const layoutImages = ConfigService.getLogos('navbarLogo');
+
       const orderStatusList = await OrderService.getOrderStatusList(items);
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
 
       message = 'get order history success.';
       res.view('b2b/order/orderhistory', {
         message,
         data: {
           items,
-          layoutImages: { navbarLogo },
+          layoutImages,
           orderStatusList,
         },
       });

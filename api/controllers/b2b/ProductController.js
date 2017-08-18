@@ -48,31 +48,16 @@ module.exports = {
         if(item.CategoryDescription !== null) return true;
       });
 
-      // categorys = categorys.map(function( category ){
-      //   return category.CategoryDescription.name;
-      // });
-
-      let banners = {};
-      for(let item in sails.config.layoutImages) {
-        if(item.indexOf('banner-') === 0) {
-          banners[item] = ConfigService.getLogo(item);
-        }
-      }
-      ConfigService.getLogo('indexLogo');
-
       q = (!q) ? '' : q;
 
-      const indexLogo = ConfigService.getLogo('indexLogo');
+      const layoutImages = ConfigService.getLogos('indexLogo', 'getBanners');
 
       res.view('index',
         {
           data:{
             items: result,
             categorys,
-            layoutImages: {
-              banners,
-              indexLogo,
-            },
+            layoutImages,
             query: Object.assign({start: '', length: '', category: '', supplier: '', limit: '', q: '', sort: '', sortDir: ''},
             {start, length, category: category.toString(), supplier, limit, q, sort, sortDir}),
           },
@@ -93,12 +78,12 @@ module.exports = {
         include: [ProductDescription, ProductOption, ProductOptionValue, ProductImage],
       });
 
-      const navbarLogo = ConfigService.getLogo('navbarLogo');
+      const layoutImages = ConfigService.getLogos('navbarLogo');
 
       res.view('b2b/product/detail',{
         data: {
           item,
-          layoutImages: { navbarLogo },
+          layoutImages,
         },
       });
     } catch (e) {

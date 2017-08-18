@@ -20,7 +20,7 @@ module.exports = {
       paymentMethodArray.push(item.type);
     })
 
-    const navbarLogo = ConfigService.getLogo('navbarLogo');
+    const layoutImages = ConfigService.getLogos('navbarLogo');
 
     res.view(
       'b2b/order/form',
@@ -28,7 +28,7 @@ module.exports = {
         token,
         data: {
           paymentMethods: sails.config.paymentMethods,
-          layoutImages: { navbarLogo },
+          layoutImages,
         },
 
       }
